@@ -185,8 +185,8 @@ func main() {
 	}
 	updates := bot.ListenForWebhook("/")
 
+	go http.ListenAndServe(":"+port, nil)
 	fmt.Println("starting server at :", port)
-	http.ListenAndServe(":"+port, nil)
 
 	for update := range updates {
 		if url, ok := bank[update.Message.Text]; ok {
