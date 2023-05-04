@@ -16,7 +16,7 @@ import (
 
 const (
 	BotToken   = "6039361130:AAGwrJcWrrIRtU96TtFAT4gX91A3kVDrLGk"
-	WebhookURL = "https://app-golang-bot.herokuapp.com"
+	WebhookURL = "https://app-privat-bot.herokuapp.com"
 )
 
 const (
