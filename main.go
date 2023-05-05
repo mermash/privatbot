@@ -163,7 +163,7 @@ func main() {
 	privatURL := os.Getenv("PRIVAT_CASH_CURRENCY_API_URL")
 
 	var bank map[string]string = map[string]string{
-		"privat": privatURL,
+		"Privat": privatURL,
 	}
 
 	bot, err := tgbotapi.NewBotAPI(botToken)
@@ -199,7 +199,7 @@ func main() {
 		} else {
 			bot.Send(tgbotapi.NewMessage(
 				update.Message.Chat.ID,
-				"There is only \"privat\" exchange rate. Please, type the \"privat\"",
+				"There is only \"Privat\" exchange rate. Please, type the \"Privat\"",
 			))
 		}
 	}
