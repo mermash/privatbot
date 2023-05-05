@@ -158,9 +158,12 @@ func getAllCashCurrencies(urlAPI string) (*CashCurrencies, error) {
 
 func main() {
 
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal(err)
+	_, err := os.Stat(".env")
+	if err == nil {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	port := os.Getenv("PORT")
