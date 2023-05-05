@@ -14,15 +14,6 @@ import (
 	tgbotapi "gopkg.in/telegram-bot-api.v4"
 )
 
-const (
-	BotToken   = "6039361130:AAGwrJcWrrIRtU96TtFAT4gX91A3kVDrLGk"
-	WebhookURL = "https://app-privat-bot.herokuapp.com"
-)
-
-const (
-	PRIVAT_CASH_CURRENCY_API_URL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid="
-)
-
 type CashCurrency struct {
 	Ccy     string `json:"ccy"`
 	BaseCcy string `json:"base_ccy"`
@@ -42,10 +33,6 @@ type ErrorAPI struct {
 type Result struct {
 	CashCurrencies *CashCurrencies
 	Error          error
-}
-
-var bank map[string]string = map[string]string{
-	"Privat": PRIVAT_CASH_CURRENCY_API_URL,
 }
 
 func getCashCurrencies(wg *sync.WaitGroup, workerNum int, ch chan Result, url string) /*(*CashCurrencies, error)*/ {
@@ -171,15 +158,22 @@ func getAllCashCurrencies(urlAPI string) (*CashCurrencies, error) {
 func main() {
 
 	port := os.Getenv("PORT")
+	botToken := os.Getenv("BOT_TOKEN")
+	webhookURL := os.Getenv("WEB_HOOK_URL")
+	privatURL := os.Getenv("PRIVAT_CASH_CURRENCY_API_URL")
 
-	bot, err := tgbotapi.NewBotAPI(BotToken)
+	var bank map[string]string = map[string]string{
+		"Privat": privatURL,
+	}
+
+	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("Authorized on account", bot.Self.UserName)
 
-	_, err = bot.SetWebhook(tgbotapi.NewWebhook(WebhookURL))
+	_, err = bot.SetWebhook(tgbotapi.NewWebhook(webhookURL))
 	if err != nil {
 		log.Fatal()
 	}
