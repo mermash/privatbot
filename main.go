@@ -11,6 +11,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/joho/godotenv"
 	tgbotapi "gopkg.in/telegram-bot-api.v4"
 )
 
@@ -156,6 +157,11 @@ func getAllCashCurrencies(urlAPI string) (*CashCurrencies, error) {
 }
 
 func main() {
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	port := os.Getenv("PORT")
 	botToken := os.Getenv("BOT_TOKEN")
